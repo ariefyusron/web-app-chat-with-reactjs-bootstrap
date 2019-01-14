@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
+import { Provider } from 'react-redux';
 
-import Login from './auth/screens/Login';
+import store from './public/redux/store';
+import Router from './public/routes/Route';
 
 class App extends Component {
 
   render() {
     return (
-      <Login />
+      <Provider store={store}>
+        <Router />
+      </Provider>
     );
   }
 }
