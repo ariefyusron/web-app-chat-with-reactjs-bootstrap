@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 
-class FormInput extends Component {
+class TextInput extends Component {
   
   render() {
 
-    const { type, placeholder, input } = this.props
+    const { type, placeholder, input, autoFocus } = this.props
 
     return (
       <div className='form-group'>
@@ -15,10 +15,11 @@ class FormInput extends Component {
           placeholder={placeholder}
           onChange={input.onChange}
           value={input.value}
+          autoFocus={autoFocus || false}
         />
       </div>
     );
   }
 }
 
-export default FormInput;
+export default TextInput;
