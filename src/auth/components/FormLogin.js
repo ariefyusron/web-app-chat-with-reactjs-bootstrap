@@ -13,11 +13,11 @@ class FormLogin extends Component {
   }
 
   render() {
-
-    const { isError, error } = this.props.auth
+    const { auth, handleSubmit } = this.props
+    const { isError, error } = auth
 
     return (
-      <form>
+      <form onSubmit={handleSubmit(this.handleLogin)}>
         <Field
           name='username'
           type='text'
@@ -38,7 +38,7 @@ class FormLogin extends Component {
             ):(null)}
           </div>
           <div className='form-group col-6'>
-            <button className='btn btn-primary float-right' onClick={this.props.handleSubmit(this.handleLogin)}>Login</button>
+            <button type='submit' className='btn btn-primary float-right'>Login</button>
           </div>
         </div>
       </form>

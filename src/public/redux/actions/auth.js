@@ -9,3 +9,10 @@ export function login(data){
     })
   }
 }
+
+export function logout(){
+  return {
+    type: 'LOGOUT',
+    payload: false
+  }
+}

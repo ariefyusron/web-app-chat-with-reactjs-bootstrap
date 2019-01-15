@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
+import { connect } from 'react-redux';
 
 import FormLogin from '../components/FormLogin';
 
@@ -23,4 +24,8 @@ class Login extends Component {
   }
 }
 
-export default Login;
+const mapStateToProps = (state) => ({
+  auth: state.auth
+})
+
+export default connect(mapStateToProps)(Login);

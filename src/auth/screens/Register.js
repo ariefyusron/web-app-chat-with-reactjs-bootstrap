@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
+import { Link, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 class Register extends Component {
   componentDidMount() {
@@ -7,6 +9,13 @@ class Register extends Component {
   }
 
   render() {
+
+    const { isLogin } = this.props.auth
+
+    if(isLogin){
+      return <Redirect to='/' />
+    }
+
     return (
       <div className='container-fluid'>
         <div className='row justify-content-md-center align-items-center' style={{height:600}}>
@@ -23,7 +32,9 @@ class Register extends Component {
                   <p>Already account?</p>
                 </div>
                 <div className='form-group col-6'>
-                  <button type='submit' className='btn btn-primary float-right'>Register</button>
+                  <Link to='/'>
+                    <button type='submit' className='btn btn-primary float-right'>Register</button>
+                  </Link>
                 </div>
               </div>
             </form>
@@ -34,4 +45,8 @@ class Register extends Component {
   }
 }
 
-export default Register;
+const mapStateToProps = (state) => ({
+  auth: state.auth
+})
+
+export default connect(mapStateToProps)(Register);
