@@ -9,14 +9,12 @@ import Home from '../../home/screens/Home';
 class Router extends Component {
   
   render() {
-
     const { isLogin } = this.props.auth
 
     return (
       <BrowserRouter>
         <Switch>
           <Route exact path='/' component={isLogin?(Home):(Login)} />
-          <Route exact path='/home' component={Home} />
           <Route exact path='/register' component={Register} />
         </Switch>
       </BrowserRouter> 

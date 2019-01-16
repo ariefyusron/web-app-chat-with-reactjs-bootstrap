@@ -12,11 +12,15 @@ const authReducer = (state = initialState, action) => {
     case 'LOGIN_PENDING':
       return {...state, isLoading: true}
     case 'LOGIN_FULFILLED':
-      return {...state, isLoading: false, isLogin: true, token: action.payload.data.token, userData: action.payload.data.result}
+      localStorage.setItem('auth',JSON.stringify({token:action.payload.data.token, userData: action.payload.data.userData}))
+      return {...state, isLoading: false, isLogin: true, token: action.payload.data.token, userData: action.payload.data.userData, error:''}
     case 'LOGIN_REJECTED':
       return {...state, isLoading:false, isError:true, error: action.payload.response.data.message}
     case 'LOGOUT':
+      localStorage.clear()
       return {...state, isLogin: false, token:''}
+    case 'AUTH':
+      return {...state, isLogin: true, token:action.payload.token, userData:action.payload.userData}
     default:
       return state;
   }

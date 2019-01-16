@@ -16,3 +16,10 @@ export function logout(){
     payload: false
   }
 }
+
+export function auth(data){
+  return {
+    type: 'AUTH',
+    payload: data
+  }
+}

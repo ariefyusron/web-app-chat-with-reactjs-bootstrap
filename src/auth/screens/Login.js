@@ -3,11 +3,16 @@ import 'bootstrap/dist/css/bootstrap.css';
 import { connect } from 'react-redux';
 
 import FormLogin from '../components/FormLogin';
+import { auth } from '../../public/redux/actions/auth';
 
 class Login extends Component {
   
   componentDidMount() {
     document.title = 'Login - app chat'
+    const checkAuth = JSON.parse(localStorage.getItem('auth'))
+    if(checkAuth){
+      this.props.dispatch(auth(checkAuth))
+    }
   }
 
   render() {
@@ -24,8 +29,4 @@ class Login extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  auth: state.auth
-})
-
-export default connect(mapStateToProps)(Login);
+export default connect()(Login);
