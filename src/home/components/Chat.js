@@ -1,41 +1,52 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
+import { connect } from 'react-redux';
 
 import './style.css';
+import FormSendChat from './FormSendChat';
 
 class Chat extends Component {
-  
+
   render() {
+
+    const { chat } = this.props.home
+    const { id } = this.props.auth.userData
+
     return (
       <div className="mesgs">
         <div className="msg_history">
-          <div className="incoming_msg">
-            <div className="incoming_msg_img">
-              <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil" />
-            </div>
-            <div className="received_msg">
-              <div className="received_withd_msg">
-              <p>Test, which is a new approach to have</p>
-              <span className="time_date"> 11:01 AM    |    Yesterday</span>
-            </div>
-            </div>
-          </div>
-          <div className="outgoing_msg">
-            <div className="sent_msg">
-              <p>Apollo University, Delhi, India Test</p>
-              <span className="time_date"> 11:01 AM    |    Today</span>
-            </div>
-          </div>
+          {chat.map((item) => (
+            id===item.fromUserId? (
+              <div className="outgoing_msg" key={item.id.toString()}>
+                <div className="sent_msg">
+                  <p>{item.chat}</p>
+                  <span className="time_date"> 11:01 AM    |    Today</span>
+                </div>
+              </div>
+            ):(
+              <div className="incoming_msg" key={item.id.toString()}>
+                <div className="incoming_msg_img">
+                  <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil" />
+                </div>
+                <div className="received_msg">
+                  <div className="received_withd_msg">
+                  <p>{item.chat}</p>
+                  <span className="time_date"> 11:01 AM    |    Yesterday</span>
+                </div>
+                </div>
+              </div>
+            )
+          ))}
         </div>
-        <div className="type_msg">
-          <div className="input_msg_write">
-            <input type="text" className="write_msg" placeholder="Type a message" />
-            <button className="msg_send_btn" type="button"><i className="fa fa-paper-plane-o" aria-hidden="true"></i></button>
-          </div>
-        </div>
+        <FormSendChat />
       </div>
     );
   }
 }
 
-export default Chat;
+const mapStateToProps = (state) => ({
+  home: state.home,
+  auth: state.auth
+})
+
+export default connect(mapStateToProps)(Chat);
