@@ -1,16 +1,30 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import { connect } from 'react-redux';
+import socketIoClient from 'socket.io-client';
 
 import './style.css';
 import FormSendChat from './FormSendChat';
+import { receiveChat } from '../../public/redux/actions/home';
 
 class Chat extends Component {
+
+  handleReceiveChat(value){
+    const { dispatch } = this.props
+    dispatch(receiveChat(value))
+  }
 
   render() {
 
     const { chat } = this.props.home
     const { id } = this.props.auth.userData
+    const socket = socketIoClient('http://192.168.0.40:5000')
+
+    socket.on('connect', () => {
+      socket.on(id,(value) => {
+        this.handleReceiveChat(value)
+      })
+    });
 
     return (
       <div className="mesgs">

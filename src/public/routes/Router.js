@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import Login from '../../auth/screens/Login';
@@ -15,7 +15,7 @@ class Router extends Component {
       <BrowserRouter>
         <Switch>
           <Route exact path='/' component={isLogin?(Home):(Login)} />
-          <Route exact path='/register' component={Register} />
+          <Route exact path='/register' render={()=>(isLogin?(<Redirect to='/'/>):(<Register/>))} />
         </Switch>
       </BrowserRouter> 
     );

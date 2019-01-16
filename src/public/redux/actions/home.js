@@ -23,14 +23,22 @@ export function chat(id,token){
 }
 
 export function sendChat(id,data,token){
-
-  axios.defaults.headers.common['Authorization'] = 'Bearer '+token
-
   return {
     type: 'SEND_CHAT',
     payload: axios.post('http://192.168.0.40:5000/send/'+id,{
       chat: data.chat
+    },{
+      headers: {
+        Authorization: 'Bearer '+token
+      }
     })
+  }
+}
+
+export function receiveChat(data){
+  return {
+    type: 'RECEIVE_CHAT',
+    payload: data
   }
 }
 

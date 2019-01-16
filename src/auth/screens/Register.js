@@ -1,21 +1,20 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+
+import { auth } from '../../public/redux/actions/auth';
 
 class Register extends Component {
   componentDidMount() {
     document.title = 'Register - app chat'
+    const checkAuth = JSON.parse(localStorage.getItem('auth'))
+    if(checkAuth){
+      this.props.dispatch(auth(checkAuth))
+    }
   }
 
   render() {
-
-    const { isLogin } = this.props.auth
-
-    if(isLogin){
-      return <Redirect to='/' />
-    }
-
     return (
       <div className='container-fluid'>
         <div className='row justify-content-md-center align-items-center' style={{height:600}}>
@@ -45,8 +44,4 @@ class Register extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  auth: state.auth
-})
-
-export default connect(mapStateToProps)(Register);
+export default connect()(Register);

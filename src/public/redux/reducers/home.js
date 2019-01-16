@@ -26,6 +26,8 @@ const homeReducer = (state = initialState, action) => {
       return {...state, isLoading: false, chat:[...state.chat, action.payload.data]}
     case 'SEND_CHAT_REJECTED':
       return {...state, isLoading:false, isError:true}
+    case 'RECEIVE_CHAT':
+      return {...state, chat:[...state.chat, action.payload]}
     case 'SET_USER':
       return {...state, userId:action.payload}
     default:
