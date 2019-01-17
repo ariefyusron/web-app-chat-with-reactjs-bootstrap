@@ -12,11 +12,9 @@ class Chat extends Component {
   componentDidMount() {
     const socket = socketIoClient('http://localhost:5000')
 
-    socket.on('connect', () => {
-      socket.on(this.props.auth.userData.id,(value) => {
-        this.handleReceiveChat(value)
-      })
-    });
+    socket.on(this.props.auth.userData.id,(value) => {
+      this.handleReceiveChat(value)
+    })
   }
 
   handleReceiveChat(value){
