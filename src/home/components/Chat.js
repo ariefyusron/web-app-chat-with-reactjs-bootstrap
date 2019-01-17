@@ -9,6 +9,16 @@ import { receiveChat } from '../../public/redux/actions/home';
 
 class Chat extends Component {
 
+  componentDidMount() {
+    const socket = socketIoClient('http://localhost:5000')
+
+    socket.on('connect', () => {
+      socket.on(this.props.auth.userData.id,(value) => {
+        this.handleReceiveChat(value)
+      })
+    });
+  }
+
   handleReceiveChat(value){
     const { dispatch } = this.props
     dispatch(receiveChat(value))
@@ -18,13 +28,7 @@ class Chat extends Component {
 
     const { chat } = this.props.home
     const { id } = this.props.auth.userData
-    const socket = socketIoClient('http://192.168.0.40:5000')
-
-    socket.on('connect', () => {
-      socket.on(id,(value) => {
-        this.handleReceiveChat(value)
-      })
-    });
+    
 
     return (
       <div className="mesgs">

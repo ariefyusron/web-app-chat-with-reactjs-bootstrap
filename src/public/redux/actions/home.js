@@ -3,7 +3,7 @@ import axios from 'axios';
 export function users(token){
   return {
     type: 'USERS',
-    payload: axios.get('http://192.168.0.40:5000/users',{
+    payload: axios.get('http://localhost:5000/users',{
       headers:{
         Authorization:'Bearer '+token
       }
@@ -14,7 +14,7 @@ export function users(token){
 export function chat(id,token){
   return {
     type: 'CHAT',
-    payload: axios.get('http://192.168.0.40:5000/show/'+id,{
+    payload: axios.get('http://localhost:5000/show/'+id,{
       headers:{
         Authorization:'Bearer '+token
       }
@@ -25,7 +25,7 @@ export function chat(id,token){
 export function sendChat(id,data,token){
   return {
     type: 'SEND_CHAT',
-    payload: axios.post('http://192.168.0.40:5000/send/'+id,{
+    payload: axios.post('http://localhost:5000/send/'+id,{
       chat: data.chat
     },{
       headers: {
