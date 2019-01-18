@@ -1,5 +1,19 @@
 import axios from 'axios';
 
+export function register(data){
+  return {
+    type: 'REGISTER',
+    payload: axios.post('http://localhost:5000/register',{
+      firstName:data.firstName,
+      lastName:data.lastName,
+      username:data.username,
+      email:data.email,
+      password:data.password,
+      confirmPassword: data.confirmPassword
+    })
+  }
+}
+
 export function login(data){
   return {
     type: 'LOGIN',

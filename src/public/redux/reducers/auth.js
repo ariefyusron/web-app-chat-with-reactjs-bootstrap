@@ -3,12 +3,19 @@ const initialState = {
   isLoading: false,
   isError: false,
   isLogin: false,
+  isSuccess: false,
   error: '',
   userData: {}
 }
 
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
+    case 'REGISTER_PENDING':
+      return {...state, isLoading: true}
+    case 'REGISTER_FULFILLED':
+      return {...state, isLoading: false, isSuccess:true, error:''}
+    case 'REGISTER_REJECTED':
+      return {...state, isLoading:false, isError:true, error: action.payload.response.data.message}
     case 'LOGIN_PENDING':
       return {...state, isLoading: true}
     case 'LOGIN_FULFILLED':

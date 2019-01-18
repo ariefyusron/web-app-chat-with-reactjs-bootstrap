@@ -2,18 +2,22 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import TextInput from '../../public/redux/components/TextInput';
 import { login } from '../../public/redux/actions/auth';
 
 const FormLogin = (props) => {
 
-  const handleLogin = (value) => {
-    props.dispatch(login(value))
-  }
-  
-  const { auth, handleSubmit } = props
+  const { auth, handleSubmit, dispatch } = props
   const { isError, error } = auth
+
+  const handleLogin = (value) => {
+    dispatch(login(value))
+    if(isError){
+      alert(error)
+    }
+  }
 
   return (
     <form onSubmit={handleSubmit(handleLogin)}>
@@ -32,9 +36,9 @@ const FormLogin = (props) => {
       />
       <div className='form-row'>
         <div className='form-group col-6'>
-          {isError? (
-            <p className='text-danger'>{error}</p>
-          ):(null)}
+          <Link to='/register'>
+            Create account?
+          </Link>
         </div>
         <div className='form-group col-6'>
           <button type='submit' className='btn btn-primary float-right'>Login</button>
