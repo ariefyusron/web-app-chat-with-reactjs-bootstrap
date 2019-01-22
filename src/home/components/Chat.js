@@ -12,8 +12,10 @@ class Chat extends Component {
   componentDidMount() {
     const socket = socketIoClient('http://localhost:5000')
 
-    socket.on(this.props.auth.userData.id,(value) => {
-      this.handleReceiveChat(value)
+    socket.on('chat',(value) => {
+      if(Number(value.receiver)===this.props.auth.userData.id && Number(value.sender)===this.props.home.userId){
+        this.handleReceiveChat(value.results)
+      }
     })
   }
 
